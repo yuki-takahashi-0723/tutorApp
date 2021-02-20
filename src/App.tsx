@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { InputArea, ListCard, PrimaryButton } from './uikit';
+import { AddButton, InputArea, ListCard, PrimaryButton } from './uikit';
 
 const App : React.FC = () => {
 
@@ -30,6 +30,9 @@ const App : React.FC = () => {
         name='田中太郎'
         day='1月1日'
         diaryTitle='aaaaaa'
+      />
+      <AddButton
+        onClick={()=>console.log('ここではリントの言葉で話せ！')}
       />
       
     </>
