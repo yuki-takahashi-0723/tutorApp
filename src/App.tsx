@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DiaryItem from './pages/diaryItem';
 import { AddButton, InputArea, ListCard, PrimaryButton } from './uikit';
 
 const App : React.FC = () => {
@@ -33,6 +34,11 @@ const App : React.FC = () => {
       />
       <AddButton
         onClick={()=>console.log('ここではリントの言葉で話せ！')}
+      />
+      <DiaryItem
+        diaryTitle='今日はトランスファーを練習しました' 
+        day='3月７日'
+        diaryContent='今日は午前中は〇〇さんと一緒にトランスファーを練習しました。'
       />
       
     </>
