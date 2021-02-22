@@ -13,14 +13,18 @@ type Props = {
 const ListCard:React.FC<Props> = (props) => {
     return(
         <Card>
-             <CardHeader
-                avatar={
-                <Avatar aria-label="recipe">
-                    {props.avater}
-                </Avatar>
-                }
-                title={props.name}
-             />
+            {
+                (props.avater && props.name) &&
+                <CardHeader
+                   avatar={
+                   <Avatar aria-label="recipe">
+                       {props.avater}
+                   </Avatar>
+                   }
+                   title={props.name}
+                />
+
+            }
              {
                  (props.diaryTitle && props.day ) &&
                 <CardContent>
