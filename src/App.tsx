@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DiaryList from './pages/diaryList';
+import UserList from './pages/usersList';
 // import DiaryItem from './pages/diaryItem';
 import { AddButton, InputArea, ListCard, PrimaryButton } from './uikit';
 
@@ -17,6 +18,7 @@ const App : React.FC = () => {
       users:[
               {
                 name:'雪',
+                avater:'a',
                 diarys:[
                     {
                       title:'最初の教育',
@@ -37,6 +39,7 @@ const App : React.FC = () => {
               },
               {
                 name:'太郎',
+                avater:'b',
                 diarys:[
                     {
                       title:'最初の教育',
@@ -52,6 +55,7 @@ const App : React.FC = () => {
       users:[
               {
                 name:'うどんまる',
+                avater:'a',
                 diarys:[
                     {
                       title:'最初の教育',
@@ -67,6 +71,9 @@ const App : React.FC = () => {
   //ルーティングを設定するまではここにテスト表記を行う
   return(
     <>
+      <UserList
+        users={testData.masterUser1.users}
+      />
       <PrimaryButton
         label={'テスト'}
         onClick={()=>console.log('aaaa')}
@@ -98,6 +105,8 @@ const App : React.FC = () => {
         name={testData.masterUser1.users[0].name} 
         diarys={testData.masterUser1.users[0].diarys}
       />
+
+
 
       
       
