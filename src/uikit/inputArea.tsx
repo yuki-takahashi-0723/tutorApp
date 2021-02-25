@@ -9,6 +9,7 @@ type Props = {
     label:string
     onChange:(e:React.ChangeEvent<HTMLInputElement>) => void
     value:string
+    type : string
 }
 
 
@@ -26,6 +27,7 @@ const InputArea:React.FC<Props> = (props) => {
             onChange={props.onChange}
             value={props.value}
             label={props.label}
+            type = {props.type}
         />
         </>
     )

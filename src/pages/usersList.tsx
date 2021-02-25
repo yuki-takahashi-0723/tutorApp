@@ -1,7 +1,8 @@
-import React from 'react'
-import { AddButton, ListCard } from '../uikit'
+import React, { useContext } from 'react'
+import { AddButton, ListCard, PrimaryButton } from '../uikit'
 import { useState,useEffect } from 'react'
-import { store } from '../firebase/config';
+import { auth, store } from '../firebase/config';
+import { AuthContext } from '../AuthSearvis';
 
 
 
@@ -21,16 +22,21 @@ type Props = {
 
 
 const UserList:React.FC<Props> = (props) =>{
-  
+  const user =　useContext(AuthContext)
+   const uid =user.crrentUser?.uid
     const [users, setUsers] = useState<any>([]);
+
+    　
+
       useEffect(() => {
-        const masterUserId = 'masterUsers'
-        store.collection('masterUsers')
-          .onSnapshot(snapshot => {
-            return setUsers(snapshot.docs.map(doc => ({ id: doc.id, data: doc.data() })));
-          });
+        if(uid !== undefined){
+            store.collection(`master:${uid}`)
+              .onSnapshot(snapshot => {
+                return setUsers(snapshot.docs.map(doc => ({ id: doc.id, data: doc.data() })));
+              });
+        } 
       }, []); 
-      console.log(users)      
+       
     return(
         <>
             {
@@ -42,9 +48,13 @@ const UserList:React.FC<Props> = (props) =>{
                         />
                })
             }
+            <span>新しくユーザーを登録する</span>
             <AddButton
                 onClick={()=>console.log('aaaa')}
-            
+            />
+            <PrimaryButton
+                label={'ログアウト'}
+                onClick={()=>auth.signOut()}
             />
         </>
     )
