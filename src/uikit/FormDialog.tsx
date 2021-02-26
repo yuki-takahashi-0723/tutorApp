@@ -8,11 +8,14 @@ type Props = {
     handleClose : () => void   
     onChangeFirst : (e:React.ChangeEvent<HTMLInputElement>) => void
     onChangeSecond? : (e:React.ChangeEvent<HTMLInputElement>) => void
-    value : string
-    label : string
+    value : string 
+    valueSecond? : string 
+    label : string 
+    labelSecond? : string
     type : string
     AddClick : () => void
 }
+
 
 
 const FormDialog:React.FC<Props>=(props)=>{
@@ -25,30 +28,33 @@ const FormDialog:React.FC<Props>=(props)=>{
         >
             <DialogTitle>{props.title}</DialogTitle>
             <DialogContent>
-                <InputArea
-                    required = {true}
-                    fullWidth={false}
-                    multiline={false}
-                    rows={1}
-                    onChange={props.onChangeFirst}
-                    value={props.value}
-                    label={props.label}
-                    type = {props.type} 
-                />
-                {
-                    props.onChangeSecond &&
-                        <InputArea
-                            required = {true}
-                            fullWidth={false}
-                            multiline={false}
-                            rows={1}
-                            onChange={props.onChangeSecond}
-                            value={props.value}
-                            label={props.label}
-                            type = {props.type} 
-                        />
-                    
-                }
+                <div>
+                    <InputArea
+                        required = {true}
+                        fullWidth={false}
+                        multiline={false}
+                        rows={1}
+                        onChange={props.onChangeFirst}
+                        value={props.value}
+                        label={props.label}
+                        type = {props.type} 
+                    />
+                </div>
+                <div>
+                    {
+                    props.onChangeSecond && props.labelSecond &&((props.valueSecond==='')||props.valueSecond) &&
+                            <InputArea
+                                required = {true}
+                                fullWidth={false}
+                                multiline={true}
+                                rows={5}
+                                onChange={props.onChangeSecond}
+                                value={props.valueSecond}
+                                label={props.labelSecond}
+                                type = {props.type} 
+                            />   
+                    }
+                </div>
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.AddClick}>

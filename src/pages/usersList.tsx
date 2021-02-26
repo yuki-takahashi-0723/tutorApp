@@ -4,6 +4,7 @@ import { useState,useEffect } from 'react'
 import { auth, store } from '../firebase/config';
 import { AuthContext } from '../AuthSearvis';
 import FormDialog from '../uikit/FormDialog';
+import * as H from 'history'
 
 
 
@@ -18,11 +19,11 @@ type user = {
 
 
 type Props = {
-    uid : string
+    history : H.History
 }
 
 
-const UserList:React.FC<Props> = (props) =>{
+const UserList:React.FC<Props> = ({history}) =>{
   const user =　useContext(AuthContext)
   const  uid =user.crrentUser?.uid
   const [users, setUsers] = useState<any>([]);
@@ -38,13 +39,28 @@ const UserList:React.FC<Props> = (props) =>{
       SetName(e.target.value)
   }
 
-    　const addUser = () =>{
+  const addUser = () =>{
         store.collection(`master:${uid}`).add({
             avater:'new',
             diarys:[{}],
             userName:name 
         })
-    }
+  }
+  
+
+
+  const selectUser = (userId:string,name:string) =>{
+    console.log(userId)
+    history.push({
+     pathname: '/diarylist',
+     state : {
+         name : name,
+        //  diarys: diary.data.diarys
+        userId : userId,
+     }
+    
+    })
+ }
 
 
 
@@ -63,11 +79,13 @@ const UserList:React.FC<Props> = (props) =>{
           <h2>{user.crrentUser?.displayName}</h2>
             {
                users.map((user:user)=>{
-                   return <ListCard
-                            avater={user.data.avater}
-                            name={user.data.userName}
-                            key={user.id}
-                        />
+                   return <div onClick={()=>selectUser(user.id,user.data.userName)}　key={user.id}> 
+                            <ListCard
+                                    avater={user.data.avater}
+                                    name={user.data.userName}
+                                
+                             />
+                          </div>
                })
             }
             <span>新しくユーザーを登録する</span>

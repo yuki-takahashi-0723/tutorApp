@@ -6,7 +6,7 @@ type Props = {
     required : boolean
     multiline:boolean
     rows : number
-    label:string
+    label:string 
     onChange:(e:React.ChangeEvent<HTMLInputElement>) => void
     value:string
     type : string
