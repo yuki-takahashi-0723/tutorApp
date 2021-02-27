@@ -55,8 +55,7 @@ const UserList:React.FC<Props> = ({history}) =>{
      pathname: '/diarylist',
      state : {
          name : name,
-        //  diarys: diary.data.diarys
-        userId : userId,
+         userId : userId,
      }
     
     })

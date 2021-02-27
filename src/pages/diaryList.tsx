@@ -5,6 +5,7 @@ import { AuthContext } from '../AuthSearvis'
 import { store　} from '../firebase/config'
 import { AddButton, ListCard } from '../uikit'
 import FormDialog from '../uikit/FormDialog'
+import * as H from 'history'
 
 
 type Props = {
@@ -14,6 +15,8 @@ type Props = {
             name : string
         }
     }
+    history : H.History
+
 }
 type diary = {
     title :string
@@ -64,8 +67,19 @@ const DiaryList:React.FC<Props> = (props) => {
         setContent('')
     }
 
+    const refDiary = (index:number) => {
+        props.history.push({
+            pathname: '/diaryitem',
+            state : {
+               index :　index,
+               userId : userId
+            }
+        })
+    }
+
+
     useEffect(()=> {
-        if(uid !== undefined || props.location.state !== undefined){
+        if(uid !== undefined && props.location.state !== undefined){
           const usersId = props.location.state.userId
           
           store.collection(`master:${uid}`).doc(usersId)
@@ -89,12 +103,15 @@ const DiaryList:React.FC<Props> = (props) => {
                     <h2>{userName}</h2>
                     {
                     diarys.map((diary,index)=>{
-                            return <ListCard
-                                        name={''}
-                                        day={diary.day}
-                                        diaryTitle={diary.title}
-                                        key={index}
-                                    />  
+                            
+                            return <div onClick={()=>refDiary(index)}> 
+                                        <ListCard
+                                            name={''}
+                                            day={diary.day}
+                                            diaryTitle={diary.title}
+                                            key={index}
+                                        />  
+                                    </div>
                         })
                     }
                 </div>

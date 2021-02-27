@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import { AuthProvider } from './AuthSearvis'
 import LoggedInRoute from './LoggedInRoute'
+import DiaryItem from './pages/diaryItem'
 import DiaryList from './pages/diaryList'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
@@ -21,7 +22,7 @@ const App:React.FC = () =>{
               <Route exact path='/signIn' component={SignIn}/>
               <LoggedInRoute path='/userlist' component={UserList}/>
               <Route exact path='/diarylist' component={DiaryList}/>
-            
+              <Route exact path='/diaryitem' component={DiaryItem}/>      
             </Switch>
           </HashRouter>
       </AuthProvider>
