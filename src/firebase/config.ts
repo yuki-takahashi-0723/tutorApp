@@ -14,5 +14,6 @@ import 'firebase/storage'
  firebase.initializeApp(firebaseConfig)
   export const auth = firebase.auth()
   export const store = firebase.firestore()
+  export const fieldValue = firebase.firestore.FieldValue
   export const storage = firebase.storage()
   export const timeStamp = firebase.firestore.Timestamp

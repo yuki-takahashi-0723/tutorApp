@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { AuthContext } from '../AuthSearvis'
-import { store } from '../firebase/config'
-import { AddButton } from '../uikit'
+import { fieldValue, store } from '../firebase/config'
+import { AddButton, InputArea } from '../uikit'
 
 type Props = {
     location: {
@@ -16,12 +16,40 @@ type diary ={
     title :string
     day : string
     content: string
+    messages: string[]
 }
 
 const DiaryItem:React.FC<Props> = (props) => {
     const user = useContext(AuthContext)
     const uid = user.crrentUser?.uid
-    const [diary,setDiary]=useState<diary>({title:'',day:'',content:''})
+    const [diary,setDiary]=useState<diary>({title:'',day:'',content:'',messages:[]})
+    const [message,setMessage]=useState('')
+    const inputMessage = (e:React.ChangeEvent<HTMLInputElement>) =>{
+        setMessage(e.target.value)
+    }
+
+    const addMessage = () => {
+        if(message === ''){
+            return false
+        }
+        store.collection(`master:${uid}`).doc(props.location.state.userId).update({
+            diarys : fieldValue.arrayRemove(diary)
+        })
+        if(diary.messages === undefined){
+            diary.messages = []
+            diary.messages.push(message)
+            console.log(diary)
+        }else{
+            diary.messages.push(message)
+            console.log(diary)
+        }
+        store.collection(`master:${uid}`).doc(props.location.state.userId).update({
+            diarys : fieldValue.arrayUnion(diary)
+        })
+        setMessage('')
+        
+    }
+
     useEffect(()=>{
         if(props.location.state !== undefined ){
             console.log(props.location.state.index)
@@ -39,9 +67,10 @@ const DiaryItem:React.FC<Props> = (props) => {
         }
         
     },[props.location.state,uid])
+   
+    // console.log(diary.messages)
 
-
-   console.log(diary)
+   
     return(
         <>
             {
@@ -54,11 +83,28 @@ const DiaryItem:React.FC<Props> = (props) => {
                 <p>内容</p>
                 <p>{diary.content}</p>
             </div>
-            <h2>コメント</h2>
-            <p>今日はよく頑張っていた！</p>
-            <span>コメント追加する</span>
+            <h2>スタッフよりメッセージ</h2>
+            {
+                diary.messages &&
+                diary.messages.map((message,index)=>{
+                    return <p key={index}>{message}</p>
+                })
+            }
+            
+            <InputArea
+                required = {true}
+                fullWidth={true}
+                multiline={true}
+                rows={7}
+                onChange={inputMessage}
+                value={message}
+                label={'メッセージを残せます'}
+                type = {'text'}
+            
+            />
+            <span>メッセージを追加する</span>
             <AddButton
-                onClick={()=>console.log('aaaaa')}
+                onClick={()=>addMessage()}
             />
 
         </>
