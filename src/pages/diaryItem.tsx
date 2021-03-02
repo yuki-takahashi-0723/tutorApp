@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { AuthContext } from '../AuthSearvis'
 import { fieldValue, store } from '../firebase/config'
 import { AddButton, InputArea } from '../uikit'
+import SpeechRecognition,{useSpeechRecognition} from 'react-speech-recognition' 
 
 type Props = {
     location: {
@@ -20,6 +21,7 @@ type diary ={
 }
 
 const DiaryItem:React.FC<Props> = (props) => {
+    
     const user = useContext(AuthContext)
     const uid = user.crrentUser?.uid
     const [diary,setDiary]=useState<diary>({title:'',day:'',content:'',messages:[]})
@@ -27,7 +29,15 @@ const DiaryItem:React.FC<Props> = (props) => {
     const inputMessage = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setMessage(e.target.value)
     }
-
+    // const handleSpeak = (text:string) => {
+    //     console.log('スピーチ開始')
+    //     const options = new SpeechSynthesisUtterance(text)
+    //     options.lang = 'ja-Jp'
+    //     window.speechSynthesis.speak(options)    
+    // }
+    
+    
+    
     const addMessage = () => {
         if(message === ''){
             return false
@@ -46,10 +56,16 @@ const DiaryItem:React.FC<Props> = (props) => {
         store.collection(`master:${uid}`).doc(props.location.state.userId).update({
             diarys : fieldValue.arrayUnion(diary)
         })
-        setMessage('')
-        
+        setMessage('')    
     }
 
+
+
+    const {transcript, resetTranscript} = useSpeechRecognition()
+
+
+ 
+    
     useEffect(()=>{
         if(props.location.state !== undefined ){
             console.log(props.location.state.index)
@@ -106,6 +122,12 @@ const DiaryItem:React.FC<Props> = (props) => {
             <AddButton
                 onClick={()=>addMessage()}
             />
+            <button　onClick={()=>SpeechRecognition.startListening()}>音声入力開始</button>
+            <button　onClick={()=>SpeechRecognition.stopListening()}>音声入力終了</button>
+           　<p>音声入力プレビュー</p>
+            <p>{transcript}</p>
+            <button　onClick={()=>setMessage(message + transcript)}>音声入力した情報を入力する</button>
+            <button　onClick={()=>resetTranscript()}>音声入力をキャンセル</button>
 
         </>
     )
