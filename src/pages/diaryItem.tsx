@@ -97,13 +97,13 @@ const DiaryItem:React.FC<Props> = (props) => {
                 <h2>タイトル：{diary.title}</h2>
                 <p>日付：{diary.day}</p>
                 <p>内容</p>
-                <p>{diary.content}</p>
+                <p　style={{whiteSpace: 'pre-line'}}>{diary.content}</p>
             </div>
             <h2>スタッフよりメッセージ</h2>
             {
                 diary.messages &&
                 diary.messages.map((message,index)=>{
-                    return <p key={index}>{message}</p>
+                    return <p style={{whiteSpace: 'pre-line'}}　key={index}>{message}</p>
                 })
             }
             
@@ -127,7 +127,7 @@ const DiaryItem:React.FC<Props> = (props) => {
            　<p>音声入力プレビュー</p>
             <p>{transcript}</p>
             <button　onClick={()=>setMessage(message + transcript)}>音声入力した情報を入力する</button>
-            <button　onClick={()=>resetTranscript()}>音声入力をキャンセル</button>
+            <button　onClick={()=>resetTranscript()}></button>
 
         </>
     )
