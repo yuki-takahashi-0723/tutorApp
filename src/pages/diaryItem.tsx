@@ -127,7 +127,7 @@ const DiaryItem:React.FC<Props> = (props) => {
            　<p>音声入力プレビュー</p>
             <p>{transcript}</p>
             <button　onClick={()=>setMessage(message + transcript)}>音声入力した情報を入力する</button>
-            <button　onClick={()=>resetTranscript()}></button>
+            <button　onClick={()=>resetTranscript()}>音声入力した情報を消去する</button>
 
         </>
     )
