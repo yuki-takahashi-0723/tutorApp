@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-speech-recognition": "^3.6.0"
+    "@types/react-speech-recognition": "^3.6.0",
+    "@types/styled-components": "^5.1.7"
   }
 }

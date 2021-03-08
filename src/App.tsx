@@ -10,11 +10,22 @@ import DiaryItem from './pages/diaryItem'
 import DiaryList from './pages/diaryList'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
+import Top from './pages/top'
 import UserList from './pages/usersList'
+import './style.css'
+import styled from 'styled-components'
+
+const AllWrap = styled.div`
+  margin:0;
+  padding:0;
+  font-family: 'HanziPen SC';
+  width:100%;
+  height:100%;
+`
 
 const App:React.FC = () =>{
   return(
-    <>
+    <AllWrap>
       <AuthProvider>
           <HashRouter>
             <Switch>
@@ -22,11 +33,12 @@ const App:React.FC = () =>{
               <Route exact path='/signIn' component={SignIn}/>
               <LoggedInRoute path='/userlist' component={UserList}/>
               <Route exact path='/diarylist' component={DiaryList}/>
-              <Route exact path='/diaryitem' component={DiaryItem}/>      
+              <Route exact path='/diaryitem' component={DiaryItem}/>
+              <Route exact path='(/)?'component= {Top}/>      
             </Switch>
           </HashRouter>
       </AuthProvider>
-    </>
+    </AllWrap>
   )
 }
 
