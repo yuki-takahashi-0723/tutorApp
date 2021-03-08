@@ -5,7 +5,41 @@ import { auth, store } from '../firebase/config';
 import { AuthContext } from '../AuthSearvis';
 import FormDialog from '../uikit/FormDialog';
 import * as H from 'history'
+import styled from 'styled-components'
+import GraphPaper from '../img/banner-1571861_1920.jpg'
 
+const Allwrap = styled.div`
+    margin : 0;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(255, 254, 179, 0.925), rgba(255, 254, 179, 0.6)), url(${GraphPaper}) 
+    center / cover;
+`
+const Title = styled.h1`
+    margin: 0;
+`
+const UserListWrap = styled.div`
+    margin: 0 30px 0 30px ;
+`
+const CardsWrap = styled.div`
+    @media (min-width:600px){
+        display:flex;
+        flex-wrap:wrap;  
+    }
+
+`
+
+const CardWrap = styled.div`
+    margin:20px;
+    @media (min-width:600px){
+        width:230px;
+    }
+`
+
+const ButtonWrap = styled.div`
+    text-align:center;
+`
 
 
 type user = {
@@ -45,6 +79,8 @@ const UserList:React.FC<Props> = ({history}) =>{
             diarys:[{}],
             userName:name 
         })
+        SetName('')
+        handleClose()
   }
   
 
@@ -74,40 +110,45 @@ const UserList:React.FC<Props> = ({history}) =>{
     
        
     return(
-        <>
+        <Allwrap>
+          <Title>登録育成者の一覧</Title>
           <h2>{user.crrentUser?.displayName}</h2>
-            {
-               users.map((user:user)=>{
-                   return <div onClick={()=>selectUser(user.id,user.data.userName)}　key={user.id}> 
-                            <ListCard
-                                    avater={user.data.avater}
-                                    name={user.data.userName}
-                                
-                             />
-                          </div>
-               })
-            }
-            <span>新しくユーザーを登録する</span>
-            <AddButton
-                onClick={()=>handleOpen()}
-            />
-            <FormDialog
-                title = '育成者登録フォーム'
-                open = {open}
-                handleClose ={handleClose}  
-                onChangeFirst = {inputName}
-                value = {name}
-                label =　'氏名（他のスタッフにわかる範囲で記述）'
-                type = 'text'
-                AddClick = {addUser}
-            
-            
-            />
-            <PrimaryButton
-                label={'ログアウト'}
-                onClick={()=>auth.signOut()}
-            />
-        </>
+          <UserListWrap>
+              <span>新しくユーザーを登録する</span>
+              <AddButton
+                  onClick={()=>handleOpen()}
+              />
+              <CardsWrap>
+                    {
+                    users.map((user:user)=>{
+                        return <CardWrap onClick={()=>selectUser(user.id,user.data.userName)}　key={user.id}> 
+                                    <ListCard
+                                            avater={user.data.avater}
+                                            name={user.data.userName}
+                                            color={'yellow'}
+                                    />
+                                </CardWrap>
+                    })
+                    }
+              </CardsWrap>
+                    <FormDialog
+                        title = '育成者登録フォーム'
+                        open = {open}
+                        handleClose ={handleClose}  
+                        onChangeFirst = {inputName}
+                        value = {name}
+                        label =　'氏名'
+                        type = 'text'
+                        AddClick = {addUser}
+                    />
+                <ButtonWrap>
+                    <PrimaryButton
+                        label={'ログアウト'}
+                        onClick={()=>auth.signOut()}
+                    />
+                </ButtonWrap>
+          </UserListWrap>
+        </Allwrap>
     )
 }
 

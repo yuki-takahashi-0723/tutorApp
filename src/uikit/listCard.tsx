@@ -6,13 +6,14 @@ type Props = {
     name:string
     day?:string
     diaryTitle?:string
+    color?:string
 
 }
 
 
 const ListCard:React.FC<Props> = (props) => {
     return(
-        <Card>
+        <Card　style={{backgroundColor:props.color}}>
             {
                 (props.avater && props.name) &&
                 <CardHeader
