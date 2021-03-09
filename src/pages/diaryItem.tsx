@@ -212,6 +212,7 @@ const DiaryItem:React.FC<Props> = (props) => {
                 <VoiceArea>
                     <ContentsWrap>
                         <VoiceInputTitle>音声入力はこちらから</VoiceInputTitle>
+                        <p>chrome以外のブラウザやihoneやipadでは音声認識は動作しません</p>
                         {
                             transcript &&
                             <VoiceInputPreview>
