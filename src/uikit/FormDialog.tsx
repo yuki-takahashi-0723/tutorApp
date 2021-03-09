@@ -54,7 +54,7 @@ const FormDialog:React.FC<Props>=(props)=>{
                         props.onChangeSecond && props.labelSecond &&((props.valueSecond==='')||props.valueSecond) &&
                                 <InputArea
                                     required = {true}
-                                    fullWidth={false}
+                                    fullWidth={true}
                                     multiline={true}
                                     rows={5}
                                     onChange={props.onChangeSecond}

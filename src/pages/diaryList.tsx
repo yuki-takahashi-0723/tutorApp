@@ -6,6 +6,36 @@ import { store　} from '../firebase/config'
 import { AddButton, ListCard } from '../uikit'
 import FormDialog from '../uikit/FormDialog'
 import * as H from 'history'
+import styled from 'styled-components'
+import GraphPaper from '../img/banner-1571861_1920.jpg'
+
+const Allwrap = styled.div`
+    margin : 0;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(255, 254, 179, 0.925), rgba(255, 254, 179, 0.6)), url(${GraphPaper}) 
+    center / cover;
+`
+const Title = styled.h1`
+    margin: 0;
+`
+
+const CardsWrap = styled.div`
+    @media (min-width:600px){
+        display:flex;
+        flex-wrap:wrap;  
+    }
+
+`
+
+const CardWrap = styled.div`
+    margin:20px;
+    @media (min-width:600px){
+        width:230px;
+    }
+`
+
 
 
 type Props = {
@@ -76,8 +106,6 @@ const DiaryList:React.FC<Props> = (props) => {
             }
         })
     }
-
-
     useEffect(()=> {
         if(uid !== undefined && props.location.state !== undefined){
           const usersId = props.location.state.userId
@@ -95,49 +123,52 @@ const DiaryList:React.FC<Props> = (props) => {
     }, [props.location.state,uid]); 
    
     return(
-        <>
+        <Allwrap>
             {
                 props.location.state !== undefined && 
-                
                 <div>
-                    <h2>{userName}</h2>
-                    {
-                    diarys.map((diary,index)=>{
-                            
-                            return <div onClick={()=>refDiary(index)}> 
-                                        <ListCard
-                                            name={''}
-                                            day={diary.day}
-                                            diaryTitle={diary.title}
-                                            key={index}
-                                        />  
-                                    </div>
-                        })
-                    }
+                    <Title>学習振り返り一覧</Title>
+                    <h2>名前：{userName}</h2>
+                        <span>新しい振り返り記録を追加する</span>
+                       <AddButton
+                           onClick={()=>handleOpen()}
+                       />
+                       <FormDialog
+                           title = '振り返り入力フォーム'
+                           open = {open}
+                           handleClose ={handleClose}  
+                           onChangeFirst = {inputTitle}
+                           onChangeSecond={inputContent}
+                           value = {title}
+                           label =　'記録のタイトルを入力'
+                           valueSecond={content}
+                           labelSecond={'今日教わったことや反省'}
+                           type = 'text'
+                           AddClick = {addDiary}
+                       />
+                    <CardsWrap>
+                        {
+                        diarys.map((diary,index)=>{
+                                
+                                return <CardWrap onClick={()=>refDiary(index)}> 
+                                            <ListCard
+                                                name={''}
+                                                day={diary.day}
+                                                diaryTitle={diary.title}
+                                                key={index}
+                                                color={'pink'}
+                                            />  
+                                        </CardWrap>
+                            })
+                        }
+                    </CardsWrap>
                 </div>
             }
             {
                 props.location.state === undefined &&
                 <Redirect to='/userlist'/>
             }
-             <span>新しい記録を追加する</span>
-            <AddButton
-                onClick={()=>handleOpen()}
-            />
-            <FormDialog
-                title = '記録フォーム'
-                open = {open}
-                handleClose ={handleClose}  
-                onChangeFirst = {inputTitle}
-                onChangeSecond={inputContent}
-                value = {title}
-                label =　'記録のタイトルを入力'
-                valueSecond={content}
-                labelSecond={'今日教わったことや反省の記録'}
-                type = 'text'
-                AddClick = {addDiary}
-            />
-        </>
+        </Allwrap>
     )
 }
 

@@ -114,7 +114,7 @@ const UserList:React.FC<Props> = ({history}) =>{
           <Title>登録育成者の一覧</Title>
           <h2>{user.crrentUser?.displayName}</h2>
           <UserListWrap>
-              <span>新しくユーザーを登録する</span>
+              <span>新しく育成者を登録する</span>
               <AddButton
                   onClick={()=>handleOpen()}
               />
