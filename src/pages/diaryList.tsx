@@ -93,8 +93,7 @@ const DiaryList:React.FC<Props> = (props) => {
         store.collection(`master:${uid}`).doc(userId).update({
             diarys : diarys.reverse(),
         })
-        setTitle('')
-        setContent('')
+       handleClose()
     }
 
     const refDiary = (index:number) => {
