@@ -50,7 +50,14 @@ const InputWrap = styled.div`
 const ButtonWrap = styled.div`
     text-align:center;
 `
-
+const Sumple = styled.div`
+    background-color:rgba(255,255,255,0.5);
+    position:absolute;
+    top: 85%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+`
 
 
 type Props = {
@@ -122,6 +129,11 @@ const SignIn:React.FC<Props> = ({history}) => {
                             onClick={signInAciton}
                         />
                     </ButtonWrap>
+                    <Sumple>
+                    <p>サンプルIDでお試しできます！</p>
+                    <p>mail: chuta@asd.ne.jp</p>
+                    <p>password: chutasample</p>
+                </Sumple>
                 </InputWrap>
             </SignInForm>
 

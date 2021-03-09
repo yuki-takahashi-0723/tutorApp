@@ -14,6 +14,7 @@ import Top from './pages/top'
 import UserList from './pages/usersList'
 import './style.css'
 import styled from 'styled-components'
+import Footer from './Footer'
 
 const AllWrap = styled.div`
   margin:0;
@@ -36,6 +37,7 @@ const App:React.FC = () =>{
               <Route exact path='/diaryitem' component={DiaryItem}/>
               <Route exact path='(/)?'component= {Top}/>      
             </Switch>
+            <Footer/>
           </HashRouter>
       </AuthProvider>
     </AllWrap>

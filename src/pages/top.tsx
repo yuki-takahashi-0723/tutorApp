@@ -28,8 +28,6 @@ const Catch = styled.h2`
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-
-    
 `
 
 const ButtonWrap = styled.div`
@@ -38,7 +36,14 @@ const ButtonWrap = styled.div`
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-
+`
+const Sumple = styled.div`
+    background-color:rgba(255,255,255,0.5);
+    position:absolute;
+    top: 85%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 `
 
 
@@ -48,6 +53,11 @@ const Top:React.FC<Props> = ({history}) => {
             <TopView>
                 <Title>chuta</Title>
                 <Catch>ビギナー育成をみんなで行うアプリケーション</Catch>
+                <Sumple>
+                    <p>サンプルIDでお試しできます！</p>
+                    <p>mail: chuta@asd.ne.jp</p>
+                    <p>password: chutasample</p>
+                </Sumple>
                 <ButtonWrap>
                     <PrimaryButton
                         label={'サインイン'}
